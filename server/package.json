@@ -1,12 +1,13 @@
 {
-  "name": "Shopping cart challenge",
+  "name": "shopping-cart-challenge",
   "version": "1.0.0",
   "description": "Shopping cart challenge",
   "main": "index.js",
   "author": "Renzo Navarro",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon --exec babel-node src/index.js"
+    "dev": "nodemon --exec babel-node src/server.js",
+    "start": "node src/server.js"
   },
   "dependencies": {
     "express": "^4.17.1"

@@ -1,8 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import ApolloClient from 'apollo-boost';
 import App from './App';
+import './index.css';
 // import * as serviceWorker from './serviceWorker';
+import { gql } from "apollo-boost";
+
+const client = new ApolloClient({
+  uri: 'http://localhost:5000',
+});
+
+
+
+client
+  .query({
+    query: gql`
+      {
+        products {
+          id
+          name
+          price
+          stock
+        }
+      }
+    `
+  })
+  .then(result => console.log(result));
+
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

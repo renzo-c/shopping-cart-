@@ -8,15 +8,6 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 
-app.get('/', (req, res) => {
-  let test = [
-    { name: 'Ram', email: 'Ram@gmail.com' },
-    { name: 'Bob', email: 'bob32@gmail.com' }
-  ];
-  res.json(test);
-  // res.send('This is a test of end point');
-});
-
 app.use(
   '/graphql',
   graphqlHTTP({

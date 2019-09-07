@@ -34,6 +34,12 @@ const Product = new GraphQLObjectType({
         resolve(product) {
           return product.stock;
         }
+      },
+      picture: {
+        type: GraphQLString,
+        resolve(product) {
+          return product.picture;
+        }
       }
     };
   }

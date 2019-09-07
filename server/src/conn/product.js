@@ -14,6 +14,9 @@ const productModel = {
   },
   stock: {
     type: Sequelize.INTEGER
+  },
+  picture: {
+    type: Sequelize.STRING
   }
 };
 

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ApolloClient from 'apollo-boost';
 import App from './App';
+
 import { gql } from "apollo-boost";
 
 const client = new ApolloClient({

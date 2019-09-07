@@ -5,6 +5,8 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     background-color: #F7F7F9;
+    font-family: "Open Sans", sans-serif;
+    line-height: 24px;
   }
 `;
 

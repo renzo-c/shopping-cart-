@@ -1,5 +1,6 @@
 import express from 'express';
-import db from './conn/db';
+import graphqlHTTP from 'express-graphql';
+import schema from './schema';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -8,15 +9,15 @@ app.get('/', (req, res) => {
   res.send('This is a test of end point');
 });
 
-db.authenticate()
-  .then(() => {
-    console.log('Connection has been established successfully.');
+app.use(
+  '/graphql',
+  graphqlHTTP({
+    schema,
+    pretty: true,
+    graphiql: true
   })
-  .catch(err => {
-    console.error('Unable to connect to the database:', err);
-  });
+);
 
 app.listen(PORT, () => {
-  console.log('Environment variables set: ', process.env);
   console.log(`Express server listening on port ${PORT}`);
 });

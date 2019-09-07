@@ -1,4 +1,6 @@
 import Sequelize from 'sequelize';
+import productModel from './product';
+import orderModel from './order';
 
 const db = new Sequelize(
   process.env.DB_NAME,
@@ -7,11 +9,38 @@ const db = new Sequelize(
   {
     host: process.env.DB_HOST,
     dialect: 'mysql'
-    // ssl: true,
-    // dialectOptions: {
-    //   ssl: true
-    // }
   }
 );
+
+// modeling tables through define
+const Product = db.define('product', productModel);
+const Order = db.define('order', orderModel);
+
+// Associations
+Product.belongsToMany(Order, { through: 'productOrder' });
+Order.belongsToMany(Product, { through: 'productOrder' });
+
+db.sync({ force: true }).then(() => {
+  return Product.create(
+    {
+      name: 'Yogurt Laive',
+      price: 23.0,
+      stock: 24,
+      picture: 'image_01'
+    },
+    {
+      name: 'Jamon Braedt',
+      price: 30.0,
+      stock: 15,
+      picture: 'image_02'
+    },
+    {
+      name: 'Espinaca Florencia',
+      price: 10.0,
+      stock: 4,
+      picture: 'image_03'
+    }
+  );
+});
 
 export default db;

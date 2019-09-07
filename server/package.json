@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon --exec babel-node src/server.js",
-    "clean": "rm -rf build && mkdir build",
+    "clean": "rm -rf build && mkdir build && npm install yarn",
     "build-babel": "babel -d ./build ./src -s",
     "build": "yarn clean && yarn build-babel",
     "start": "node ./build/server.js"

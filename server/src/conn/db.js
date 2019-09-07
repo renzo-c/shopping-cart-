@@ -21,7 +21,7 @@ Product.belongsToMany(Order, { through: 'productOrder' });
 Order.belongsToMany(Product, { through: 'productOrder' });
 
 db.sync({ force: true }).then(() => {
-  return Product.create(
+  return Product.bulkCreate([
     {
       name: 'Yogurt Laive',
       price: 23.0,
@@ -40,7 +40,7 @@ db.sync({ force: true }).then(() => {
       stock: 4,
       picture: 'image_03'
     }
-  );
+  ]);
 });
 
 export default db;

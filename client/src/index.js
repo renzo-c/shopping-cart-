@@ -7,10 +7,8 @@ import './index.css';
 import { gql } from "apollo-boost";
 
 const client = new ApolloClient({
-  uri: 'http://localhost:5000',
+  uri: 'http://localhost:5000/graphql',
 });
-
-
 
 client
   .query({

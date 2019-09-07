@@ -7,7 +7,8 @@ import './index.css';
 import { gql } from "apollo-boost";
 
 const client = new ApolloClient({
-  uri: 'http://localhost:5000/graphql',
+  // uri: 'http://localhost:5000/graphql',
+  uri: 'https://shopping-cart-rq.herokuapp.com/graphql',
 });
 
 client

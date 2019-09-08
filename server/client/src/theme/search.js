@@ -28,8 +28,8 @@ export const Row = styled.div`
   display: flex;
   padding: 16px;
   border: 1px solid #dddddd;
-  // pointer-events: none;
-  // opacity: 0.4;
+  pointer-events: ${({type}) => type === 'dull' ? 'none' : 'auto'};
+  opacity: ${({dull}) => dull ? '0.4' : '1'};
 `;
 
 export const Image = styled.img`

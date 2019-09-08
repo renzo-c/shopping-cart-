@@ -60,16 +60,41 @@ export const Price = styled.span`
 `;
 
 export const Button = styled.button`
-  background-color: #FF8000;
-  border: none;
-  border-radius: 50%;
-  padding: 20px;
-  cursor: pointer;
-  width: 48px;
+  position: relative;
+  margin: auto;
+  width:48px;
   height:48px;
-  outline:none;
-  align-self: center;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  background: #FF8000;
+  line-height:80px;
+  text-align:center;
+  text-decoration:none;
+  font-size:20px;
+  font-weight:bold;
+  cursor: pointer;
   &:active {
     background-color: #d16e0a;
+  }
+`;
+
+export const Cross = styled.span`
+  position: absolute;
+  display: block;
+  background: white;
+  top: 50%;
+  left: 50%;
+  height: 24px;
+  width: 3px;
+  transform: translate(-50%, -50%);
+  &::after {
+    background: white;
+    content: "";
+    height: 3px;
+    left: -11px;
+    position: absolute;
+    top: 11px;
+    width: 24px;
   }
 `;

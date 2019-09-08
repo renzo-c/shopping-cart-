@@ -7,7 +7,8 @@ import {
   Image,
   Price,
   Name,
-  Button
+  Button,
+  Cross
 } from './theme/search';
 
 const Home = props => {
@@ -36,7 +37,9 @@ const Home = props => {
               <Name>{product.name}</Name>
               <Price>$ {product.price.toFixed(2)}</Price>
             </Description>
-            <Button>Hello</Button>
+            <Button>
+              <Cross />
+            </Button>
           </Row>
         ))}
       </SearchList>

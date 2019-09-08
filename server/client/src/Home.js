@@ -32,18 +32,23 @@ const Home = props => {
 
   const handleClickAddItem = (e, product) => {
     e.preventDefault();
+    console.log('product', product);
     if (shopping.isShopping) {
       console.log('ready to delete');
     } else {
-      if (cartItems.filter(p => p.id === product.id).length === 0) {
-        let newProduct = { ...product };
+      let newProduct = cartItems.filter(p => p.id === product.id)[0]; 
+      if (newProduct === undefined) {
+        newProduct = { ...product };
         newProduct['quantity'] = 1;
         setCartItems([...cartItems, newProduct]);
-        setShopping({ isShopping: true, product });
       }
+      setShopping({ isShopping: true, product:newProduct });
     }
   };
-  console.log(shopping);
+  console.log('filteredList', filteredList);
+  console.log('shopping', shopping);
+  console.log('cartItems', cartItems);
+  console.log('shopping.isShopping', Boolean(shopping.isShopping));
   return (
     <>
       <SearchBar placeholder='Search Products' onChange={handleChange} />

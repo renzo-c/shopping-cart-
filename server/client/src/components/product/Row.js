@@ -10,6 +10,7 @@ import {
 } from '../../theme/search';
 
 const productRow = ({ product, onClick, dull }) => {
+  console.log("product.quantity", product.quantity);
   return (
     <Row dull={dull}>
       <Image alt='product' src={`/images/${product.picture}.png`} />
@@ -21,7 +22,7 @@ const productRow = ({ product, onClick, dull }) => {
       </Description>
       {!dull && (
         <Button onClick={e => onClick(e, product)}>
-          <Cross />
+          {product.quantity ? product.quantity : <Cross />}
         </Button>
       )}
     </Row>

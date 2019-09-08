@@ -28,6 +28,8 @@ export const Row = styled.div`
   display: flex;
   padding: 16px;
   border: 1px solid #dddddd;
+  // pointer-events: none;
+  // opacity: 0.4;
 `;
 
 export const Image = styled.img`
@@ -52,27 +54,27 @@ export const Name = styled.div`
   padding: 0;
 `;
 
-export const Price = styled.span`
-  color: red;
+export const Span = styled.span`
+  color: ${({ color }) => (color === 'red' ? 'red' : 'black')};
   font-weight: 600;
-  font-size: 22px;
-  line-height: 32px;
+  font-size: ${({ type }) => (type === 'price' ? '22px' : '16px')};
+  line-height: ${({ type }) => (type === 'price' ? '32px' : '24px')};
 `;
 
 export const Button = styled.button`
   position: relative;
   margin: auto;
-  width:48px;
-  height:48px;
+  width: 48px;
+  height: 48px;
   border: none;
   outline: none;
   border-radius: 50%;
-  background: #FF8000;
-  line-height:80px;
-  text-align:center;
-  text-decoration:none;
-  font-size:20px;
-  font-weight:bold;
+  background: #ff8000;
+  line-height: 80px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: bold;
   cursor: pointer;
   &:active {
     background-color: #d16e0a;
@@ -90,11 +92,65 @@ export const Cross = styled.span`
   transform: translate(-50%, -50%);
   &::after {
     background: white;
-    content: "";
+    content: '';
     height: 3px;
     left: -11px;
     position: absolute;
     top: 11px;
     width: 24px;
   }
+`;
+
+export const TimeBoard = styled.div`
+  position: absolute;
+  width: 270px;
+  height: 24px;
+  left: 589px;
+  top: 128px;
+`;
+
+export const PricingBoard = styled.div`
+  position: absolute;
+  width: 360px;
+  height: 224px;
+  left: 544px;
+  top: 168px;
+  outline: none;
+`;
+
+export const QuoteBoard = styled.div`
+  position: absolute;
+  margin: 0;
+  // padding: 16px;
+  width: 360px;
+  height: 160px;
+  left: 0px;
+  top: 0px;
+  background: #ffffff;
+`;
+
+export const ButtonOrder = styled.button`
+  position: absolute;
+  width: 360px;
+  height: 48px;
+  left: 0px;
+  top: 176px;
+  background: #f7f7f7;
+  border: 1px solid #dddddd;
+  box-sizing: border-box;
+  border-radius: 4px;
+  color: #c1c1c1;
+`;
+
+export const Div = styled.div`
+  margin: 0;
+  margin-bottom: 8px;
+  padding: ${({ dir }) => (dir === 'column' ? '16px' : '0')};
+  display: flex;
+  background-color: ${({ bg }) =>
+    bg === 'marker' ? '#FFE200' : 'transparent'};
+  flex-direction: ${({ dir }) => (dir === 'column' ? 'column' : 'row')};
+  justify-content: ${({ dir }) =>
+    dir === 'column' ? 'flex-start' : 'space-between'};
+  font-weight: ${({ font }) => (font === 'weight' ? '600' : 'normal')};
 `;

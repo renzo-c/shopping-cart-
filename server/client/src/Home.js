@@ -5,10 +5,15 @@ import {
   Row,
   Description,
   Image,
-  Price,
+  Span,
   Name,
   Button,
-  Cross
+  Cross,
+  PricingBoard,
+  TimeBoard,
+  ButtonOrder,
+  QuoteBoard,
+  Div
 } from './theme/search';
 
 const Home = props => {
@@ -35,7 +40,7 @@ const Home = props => {
             <Image alt='product' src={`/images/${product.picture}.png`} />
             <Description>
               <Name>{product.name}</Name>
-              <Price>$ {product.price.toFixed(2)}</Price>
+              <Span type='price' color='red'>$ {product.price.toFixed(2)}</Span>
             </Description>
             <Button>
               <Cross />
@@ -43,6 +48,34 @@ const Home = props => {
           </Row>
         ))}
       </SearchList>
+      {/* dullcomponent */}
+      <TimeBoard>
+        <img alt='product' src='/images/icon.png' />
+        &ensp;Buy now and get it by <Span>05/24/2019</Span>
+      </TimeBoard>
+      <PricingBoard>
+        <QuoteBoard>
+          <Div dir='column'>
+            <Div>
+              <div>Products</div>
+              <div>23.00</div>
+            </Div>
+            <Div bg='marker' font="weight">
+              <div>Shipping Cost</div>
+              <div>23.00</div>
+            </Div>
+            <Div>
+              <div>Taxes</div>
+              <div>23.00</div>
+            </Div>
+          </Div>
+          <Div font='weight' style={{margin:'0px 16px 16px 16px'}}>
+            <div>Total</div>
+            <Span color='red'>23.00</Span>
+          </Div>
+        </QuoteBoard>
+        <ButtonOrder>COMPLETE ORDER</ButtonOrder>
+      </PricingBoard>
     </>
   );
 };

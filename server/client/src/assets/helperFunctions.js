@@ -25,6 +25,7 @@ const getProductsCost = cartItems => {
   let productsCost = 0;
   cartItems.map(({ quantity, price }) => {
     productsCost += quantity * price;
+    return null;
   });
   return productsCost;
 };

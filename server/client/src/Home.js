@@ -119,14 +119,15 @@ const Home = props => {
               product={shopping.product}
               dull={false}
               onClickAddDelete={handleClickAddItem}
+              counter={true}
+              onClickCounter={handleClickCounter}
+              onChangeCounter={onChangeCounter}
             />
             {cartItems.map((product, key) => (
               <Row
                 dull={true}
                 product={product}
                 onClickAddDelete={handleClickAddItem}
-                onClickCounter={handleClickCounter}
-                onChangeCounter={onChangeCounter}
                 key={key}
               />
             ))}

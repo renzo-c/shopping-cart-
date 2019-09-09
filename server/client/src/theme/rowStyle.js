@@ -87,6 +87,7 @@ export const CounterControl = styled.div`
   top: 279px;
   justify-content: space-between;
   border-radius: 4px;
+  z-index: 10;
 `;
 
 export const ButtonContainer = styled.div`

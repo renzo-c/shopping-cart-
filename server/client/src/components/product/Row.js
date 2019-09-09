@@ -19,7 +19,8 @@ const productRow = ({
   onClickAddDelete,
   dull,
   onClickCounter,
-  onChangeCounter
+  onChangeCounter,
+  counter
 }) => {
   return (
     <>
@@ -44,7 +45,8 @@ const productRow = ({
           {product.quantity ? 'Delete' : null}
         </ButtonContainer>
       </Row>
-      {dull && (
+
+      {counter && (
         <CounterControl>
           <CounterButton onClick={e => onClickCounter(e, 'min', product.id)}>
             <img alt='minus button' src='/images/minusIcon.png' />
@@ -55,6 +57,7 @@ const productRow = ({
             onChange={e => onChangeCounter(e, product.id)}
           />
           <CounterButton onClick={e => onClickCounter(e, 'plus', product.id)}>
+            {console.log('I am ', product.name)}
             <img alt='plus button' src='/images/plusIcon.png' />
           </CounterButton>
         </CounterControl>

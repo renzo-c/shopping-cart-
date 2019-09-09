@@ -86,11 +86,39 @@ export const CounterControl = styled.div`
   left: 284px;
   top: 279px;
   justify-content: space-between;
+  border-radius: 4px;
 `;
 
 export const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const CounterDisplay = styled.input`
+  width: 68px;
+  height: 48px;
+  background-color: #ff8000;
+  padding: 0;
+  border: none;
+  color: white;
+  font-size: 16px;
+  text-align: center;
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+`;
+
+export const CounterButton = styled.button`
+  width: 56px;
+  height: 48px;
+  background-color: #ff8000;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
   justify-content: center;
   align-items: center;
 `;

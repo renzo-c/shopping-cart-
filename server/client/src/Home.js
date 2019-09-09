@@ -32,6 +32,7 @@ const Home = props => {
     if (product.deletable) {
       let newList = cartItems.filter(item => item.id !== product.id);
       setCartItems([...newList]);
+      setShopping({ isShopping: false, product: {} });
     } else {
       let newProduct = cartItems.filter(p => p.id === product.id)[0];
       if (newProduct === undefined) {
@@ -43,15 +44,31 @@ const Home = props => {
     }
   };
 
-  console.log('shopping', shopping);
-  console.log('cartItems', cartItems);
+  const handleClickCounter = (e, op, prodId) => {
+    e.preventDefault();
+    let newcartItems = cartItems.filter(product => product.id !== prodId);
+    let updatedProduct = cartItems.filter(product => product.id === prodId)[0];
+    op === 'plus'
+      ? (updatedProduct.quantity += 1)
+      : (updatedProduct.quantity -= 1);
+    setCartItems([...newcartItems, updatedProduct]);
+  };
 
+  const onChangeCounter = (e, prodId) => {
+    e.preventDefault();
+    let newcartItems = cartItems.filter(product => product.id !== prodId);
+    let updatedProduct = cartItems.filter(product => product.id === prodId)[0];
+    console.log('updatedProduct', updatedProduct);
+    updatedProduct.quantity = parseInt(e.target.value);
+    setCartItems([...newcartItems, updatedProduct]);
+  };
+
+  console.log('cartItems', cartItems);
   if (!searchedText.trim().length && !shopping.isShopping) {
-    console.log('cart');
     return (
       <>
         <ShopModule handleChange={handleChange} searchedText={searchedText}>
-          <Cart cartItems={cartItems} onClick={handleClickAddItem} />
+          <Cart cartItems={cartItems} onClickAddDelete={handleClickAddItem} />
         </ShopModule>
       </>
     );
@@ -63,7 +80,7 @@ const Home = props => {
             <Row
               dull={false}
               product={product}
-              onClick={handleClickAddItem}
+              onClickAddDelete={handleClickAddItem}
               key={key}
             />
           ))}
@@ -78,13 +95,15 @@ const Home = props => {
             <Row
               product={shopping.product}
               dull={false}
-              onClick={handleClickAddItem}
+              onClickAddDelete={handleClickAddItem}
             />
-            {filteredList.map((product, key) => (
+            {cartItems.map((product, key) => (
               <Row
                 dull={true}
                 product={product}
-                onClick={handleClickAddItem}
+                onClickAddDelete={handleClickAddItem}
+                onClickCounter={handleClickCounter}
+                onChangeCounter={onChangeCounter}
                 key={key}
               />
             ))}

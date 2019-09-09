@@ -8,11 +8,19 @@ import {
   Button,
   Cross,
   CounterControl,
-  ButtonContainer
+  ButtonContainer,
+  CounterButton,
+  CounterDisplay
 } from '../../theme/rowStyle';
 import { IconSpan } from '../../theme/basicTags';
 
-const productRow = ({ product, onClick, dull }) => {
+const productRow = ({
+  product,
+  onClickAddDelete,
+  dull,
+  onClickCounter,
+  onChangeCounter
+}) => {
   return (
     <>
       <Row dull={dull}>
@@ -25,7 +33,7 @@ const productRow = ({ product, onClick, dull }) => {
         </Description>
         <ButtonContainer>
           {!dull && (
-            <Button onClick={e => onClick(e, product)}>
+            <Button onClick={e => onClickAddDelete(e, product)}>
               {product.quantity ? (
                 <IconSpan color='white'>{product.quantity}</IconSpan>
               ) : (
@@ -38,9 +46,17 @@ const productRow = ({ product, onClick, dull }) => {
       </Row>
       {dull && (
         <CounterControl>
-          <button>-</button>
-          counter
-          <button>+</button>
+          <CounterButton onClick={e => onClickCounter(e, 'min', product.id)}>
+            <img alt='minus button' src='/images/minusIcon.png' />
+          </CounterButton>
+          <CounterDisplay
+            type='number'
+            value={product.quantity}
+            onChange={e => onChangeCounter(e, product.id)}
+          />
+          <CounterButton onClick={e => onClickCounter(e, 'plus', product.id)}>
+            <img alt='plus button' src='/images/plusIcon.png' />
+          </CounterButton>
         </CounterControl>
       )}
     </>

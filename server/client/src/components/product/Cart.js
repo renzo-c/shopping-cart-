@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Title, Image, Description } from '../../theme/cartStyle';
 import Row from './Row';
 
-const Cart = ({ cartItems, onClick }) => {
+const Cart = ({ cartItems, onClickAddDelete }) => {
   if (!cartItems.length) {
     return (
       <Container>
@@ -16,7 +16,12 @@ const Cart = ({ cartItems, onClick }) => {
       <>
         {cartItems.map((product, key) => {
           return (
-            <Row dull={false} product={product} onClick={onClick} key={key} />
+            <Row
+              dull={false}
+              product={product}
+              onClickAddDelete={onClickAddDelete}
+              key={key}
+            />
           );
         })}
       </>

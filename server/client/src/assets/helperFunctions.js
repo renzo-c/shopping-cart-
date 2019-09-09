@@ -21,6 +21,14 @@ const getDateFormat = date => {
   return `${month}/${day}/${year}`;
 };
 
+const getProductsCost = cartItems => {
+  let productsCost = 0;
+  cartItems.map(({ quantity, price }) => {
+    productsCost += quantity * price;
+  });
+  return productsCost;
+};
+
 export const getDeliveryTime = () => {
   let currentDate = new Date();
   let day = currentDate.getDay();
@@ -38,9 +46,10 @@ export const getDeliveryTime = () => {
   return deliveryDate;
 };
 
-export const getQuotation = productsCost => {
+export const getQuotation = cartItems => {
+  let productsCost = getProductsCost(cartItems);
   let taxes = getTaxes(productsCost);
   let shippingCost = getShippingCost(productsCost);
   let totalCost = productsCost + shippingCost;
-  return { totalCost, shippingCost, taxes };
+  return { productsCost, shippingCost, taxes, totalCost };
 };

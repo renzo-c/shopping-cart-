@@ -11,7 +11,7 @@ import {
 import { Span } from '../../theme/basicTags';
 import { getDeliveryTime } from '../../assets/helperFunctions';
 
-const ShopModule = ({ children, handleChange, searchedText }) => {
+const ShopModule = ({ children, handleChange, searchedText, quotation }) => {
   const [deliveryDate, setDeliveryDate] = useState('');
 
   useEffect(() => {
@@ -19,7 +19,8 @@ const ShopModule = ({ children, handleChange, searchedText }) => {
     setDeliveryDate(date);
   }, []);
 
-  console.log('deliveryDate', deliveryDate);
+  console.log('quotation!', quotation);
+
   return (
     <>
       <SearchBar
@@ -37,20 +38,20 @@ const ShopModule = ({ children, handleChange, searchedText }) => {
           <Div dir='column'>
             <Div>
               <div>Products</div>
-              <div>23.00</div>
+              <div>{quotation.productsCost.toFixed(2)}</div>
             </Div>
             <Div bg='marker' font='weight'>
               <div>Shipping Cost</div>
-              <div>23.00</div>
+              <div>{quotation.shippingCost.toFixed(2)}</div>
             </Div>
             <Div>
               <div>Taxes</div>
-              <div>23.00</div>
+              <div>{quotation.taxes.toFixed(2)}</div>
             </Div>
           </Div>
           <Div font='weight' style={{ margin: '0px 16px 16px 16px' }}>
             <div>Total</div>
-            <Span color='red'>23.00</Span>
+            <Span color='red'>{quotation.totalCost.toFixed(2)}</Span>
           </Div>
         </QuoteBoard>
         <ButtonOrder>COMPLETE ORDER</ButtonOrder>

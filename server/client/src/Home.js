@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Row from './components/product/Row';
 import Cart from './components/product/Cart';
 import ShopModule from './components/product/ShopModule';
@@ -9,6 +9,7 @@ const Home = props => {
   const [cartItems, setCartItems] = useState([]);
   const [shopping, setShopping] = useState({ isShopping: false, product: {} });
   const [searchedText, setSearchedText] = useState('');
+  
 
   const handleChange = e => {
     setSearchedText(e.target.value);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   SearchBar,
   SearchList,
@@ -9,8 +9,17 @@ import {
   Div
 } from '../../theme/search';
 import { Span } from '../../theme/basicTags';
+import { getDeliveryTime } from '../../assets/helperFunctions';
 
 const ShopModule = ({ children, handleChange, searchedText }) => {
+  const [deliveryDate, setDeliveryDate] = useState('');
+
+  useEffect(() => {
+    let date = getDeliveryTime();
+    setDeliveryDate(date);
+  }, []);
+
+  console.log('deliveryDate', deliveryDate);
   return (
     <>
       <SearchBar
@@ -21,7 +30,7 @@ const ShopModule = ({ children, handleChange, searchedText }) => {
       <SearchList>{children}</SearchList>
       <TimeBoard>
         <img alt='product' src='/images/deliveryIcon.png' />
-        &ensp;Buy now and get it by <Span>05/24/2019</Span>
+        &ensp;Buy now and get it by <Span>{deliveryDate}</Span>
       </TimeBoard>
       <PricingBoard>
         <QuoteBoard>

@@ -1,23 +1,20 @@
 import React, { useState } from 'react';
-import {
-  SearchBar,
-  SearchList,
-  Span,
-  PricingBoard,
-  TimeBoard,
-  ButtonOrder,
-  QuoteBoard,
-  Div
-} from './theme/search';
 import Row from './components/product/Row';
+import Cart from './components/product/Cart';
+import ShopModule from './components/product/ShopModule';
 
 const Home = props => {
   const [products] = useState(props.products);
   const [filteredList, setFilteredList] = useState([]);
   const [cartItems, setCartItems] = useState([]);
-  const [shopping, setShopping] = useState({});
+  const [shopping, setShopping] = useState({ isShopping: false, product: {} });
+  const [searchedText, setSearchedText] = useState('');
 
   const handleChange = e => {
+    setSearchedText(e.target.value);
+    if (shopping.isShopping) {
+      setShopping({ ...shopping, isShopping: false });
+    }
     let str = e.target.value.toLowerCase().trim();
     if (str) {
       let newList = products.filter(product =>
@@ -32,76 +29,70 @@ const Home = props => {
 
   const handleClickAddItem = (e, product) => {
     e.preventDefault();
-    console.log('product', product);
-    if (shopping.isShopping) {
-      console.log('ready to delete');
+    if (product.deletable) {
+      let newList = cartItems.filter(item => item.id !== product.id);
+      setCartItems([...newList]);
     } else {
-      let newProduct = cartItems.filter(p => p.id === product.id)[0]; 
+      let newProduct = cartItems.filter(p => p.id === product.id)[0];
       if (newProduct === undefined) {
-        newProduct = { ...product };
-        newProduct['quantity'] = 1;
+        newProduct = { ...product, quantity: 1, deletable: true };
         setCartItems([...cartItems, newProduct]);
+        setSearchedText('');
       }
-      setShopping({ isShopping: true, product:newProduct });
+      setShopping({ isShopping: !shopping.isShopping, product: newProduct });
     }
   };
-  console.log('filteredList', filteredList);
+
   console.log('shopping', shopping);
   console.log('cartItems', cartItems);
-  console.log('shopping.isShopping', Boolean(shopping.isShopping));
-  return (
-    <>
-      <SearchBar placeholder='Search Products' onChange={handleChange} />
-      <SearchList>
-        {!shopping.isShopping ? (
-          filteredList.map((product, key) => (
+
+  if (!searchedText.trim().length && !shopping.isShopping) {
+    console.log('cart');
+    return (
+      <>
+        <ShopModule handleChange={handleChange} searchedText={searchedText}>
+          <Cart cartItems={cartItems} onClick={handleClickAddItem} />
+        </ShopModule>
+      </>
+    );
+  } else if (searchedText.trim().length && !shopping.isShopping) {
+    return (
+      <>
+        <ShopModule handleChange={handleChange} searchedText={searchedText}>
+          {filteredList.map((product, key) => (
             <Row
               dull={false}
               product={product}
               onClick={handleClickAddItem}
               key={key}
             />
-          ))
-        ) : (
+          ))}
+        </ShopModule>
+      </>
+    );
+  } else if (shopping.isShopping) {
+    return (
+      <>
+        <ShopModule handleChange={handleChange} searchedText={searchedText}>
           <>
             <Row
               product={shopping.product}
               dull={false}
               onClick={handleClickAddItem}
             />
-            <Row product={shopping.product} dull={true} />
+            {filteredList.map((product, key) => (
+              <Row
+                dull={true}
+                product={product}
+                onClick={handleClickAddItem}
+                key={key}
+              />
+            ))}
           </>
-        )}
-      </SearchList>
-      <TimeBoard>
-        <img alt='product' src='/images/icon.png' />
-        &ensp;Buy now and get it by <Span>05/24/2019</Span>
-      </TimeBoard>
-      <PricingBoard>
-        <QuoteBoard>
-          <Div dir='column'>
-            <Div>
-              <div>Products</div>
-              <div>23.00</div>
-            </Div>
-            <Div bg='marker' font='weight'>
-              <div>Shipping Cost</div>
-              <div>23.00</div>
-            </Div>
-            <Div>
-              <div>Taxes</div>
-              <div>23.00</div>
-            </Div>
-          </Div>
-          <Div font='weight' style={{ margin: '0px 16px 16px 16px' }}>
-            <div>Total</div>
-            <Span color='red'>23.00</Span>
-          </Div>
-        </QuoteBoard>
-        <ButtonOrder>COMPLETE ORDER</ButtonOrder>
-      </PricingBoard>
-    </>
-  );
+        </ShopModule>
+      </>
+    );
+  }
 };
 
 export default Home;

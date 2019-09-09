@@ -49,9 +49,18 @@ const Home = props => {
     e.preventDefault();
     let newcartItems = cartItems.filter(product => product.id !== prodId);
     let updatedProduct = cartItems.filter(product => product.id === prodId)[0];
-    op === 'plus'
-      ? (updatedProduct.quantity += 1)
-      : (updatedProduct.quantity -= 1);
+    if (op === 'plus') {
+      if (updatedProduct.quantity < updatedProduct.stock) {
+        updatedProduct.quantity += 1;
+      }
+    } else {
+      updatedProduct.quantity -= 1;
+      if (updatedProduct.quantity === 0) {
+        setShopping({ ...shopping, isShopping: false });
+        setCartItems([...newcartItems]);
+        return null;
+      }
+    }
     setCartItems([...newcartItems, updatedProduct]);
   };
 
@@ -64,6 +73,8 @@ const Home = props => {
   };
 
   const quotation = getQuotation(cartItems);
+
+  console.log('cartItems', cartItems);
   if (!searchedText.trim().length && !shopping.isShopping) {
     return (
       <>

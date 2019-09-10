@@ -52,19 +52,6 @@ export const QuoteBoard = styled.div`
   background: #ffffff;
 `;
 
-export const ButtonOrder = styled.button`
-  position: absolute;
-  width: 360px;
-  height: 48px;
-  left: 0px;
-  top: 176px;
-  background: #f7f7f7;
-  border: 1px solid #dddddd;
-  box-sizing: border-box;
-  border-radius: 4px;
-  color: #c1c1c1;
-`;
-
 export const Div = styled.div`
   margin: 0;
   margin-bottom: 8px;

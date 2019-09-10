@@ -4,10 +4,10 @@ import {
   SearchList,
   PricingBoard,
   TimeBoard,
-  ButtonOrder,
   QuoteBoard,
   Div
 } from '../../theme/search';
+import { ButtonOrder } from '../../theme/shopModuleStyle';
 import { Span } from '../../theme/basicTags';
 import { getDeliveryTime } from '../../assets/helperFunctions';
 
@@ -54,7 +54,7 @@ const ShopModule = ({ children, handleChange, searchedText, quotation }) => {
             <Span color='red'>{quotation.totalCost.toFixed(2)}</Span>
           </Div>
         </QuoteBoard>
-        <ButtonOrder>COMPLETE ORDER</ButtonOrder>
+        <ButtonOrder price={quotation.totalCost}>COMPLETE ORDER</ButtonOrder>
       </PricingBoard>
     </>
   );

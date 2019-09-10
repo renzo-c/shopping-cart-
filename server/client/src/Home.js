@@ -83,14 +83,20 @@ const Home = props => {
 
   const quotation = getQuotation(cartItems);
 
-  console.log('cartItems', cartItems);
-  console.log('products', products);
+  const handleClickOrder = (e) => {
+    e.preventDefault();
+    console.log("clicked!");
+  }
+
+  // console.log('cartItems', cartItems);
+  // console.log('products', products);
 
   if (!searchedText.trim().length && !shopping.isShopping) {
     return (
       <>
         <ShopModule
           handleChange={handleChange}
+          handleClickOrder={handleClickOrder}
           searchedText={searchedText}
           quotation={quotation}
         >
@@ -103,6 +109,7 @@ const Home = props => {
       <>
         <ShopModule
           handleChange={handleChange}
+          handleClickOrder={handleClickOrder}
           searchedText={searchedText}
           quotation={quotation}
         >
@@ -122,6 +129,7 @@ const Home = props => {
       <>
         <ShopModule
           handleChange={handleChange}
+          handleClickOrder={handleClickOrder}
           searchedText={searchedText}
           quotation={quotation}
         >

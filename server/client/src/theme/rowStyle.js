@@ -90,6 +90,19 @@ export const CounterControl = styled.div`
   z-index: 10;
 `;
 
+export const MaxStockLabel = styled.div`
+  position: fixed;
+  display: block;
+  left: 300px;
+  top: 330px;
+  z-index: 10;
+  color: red;
+  font-size: 13px;
+  font-weight: 600;
+  text-aling:center;
+
+`;
+
 export const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;

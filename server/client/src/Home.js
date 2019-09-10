@@ -64,17 +64,28 @@ const Home = props => {
     setCartItems([...newcartItems, updatedProduct]);
   };
 
-  const onChangeCounter = (e, prodId) => {
+  const onChangeCounter = (e, id) => {
     e.preventDefault();
-    let newcartItems = cartItems.filter(product => product.id !== prodId);
-    let updatedProduct = cartItems.filter(product => product.id === prodId)[0];
-    updatedProduct.quantity = parseInt(e.target.value);
+    let newQuantity = parseInt(e.target.value);
+    let newcartItems = cartItems.filter(product => product.id !== id);
+    let updatedProduct = cartItems.filter(product => product.id === id)[0];
+    if (newQuantity >= updatedProduct.stock) {
+      updatedProduct.quantity = updatedProduct.stock;
+    } else if (newQuantity <= 0) {
+      setShopping({ ...shopping, isShopping: false });
+      setCartItems([...newcartItems]);
+      return null;
+    } else {
+      updatedProduct.quantity = newQuantity;
+    }
     setCartItems([...newcartItems, updatedProduct]);
   };
 
   const quotation = getQuotation(cartItems);
 
   console.log('cartItems', cartItems);
+  console.log('products', products);
+
   if (!searchedText.trim().length && !shopping.isShopping) {
     return (
       <>

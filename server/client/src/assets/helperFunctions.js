@@ -54,3 +54,11 @@ export const getQuotation = cartItems => {
   let totalCost = productsCost + shippingCost;
   return { productsCost, shippingCost, taxes, totalCost };
 };
+
+export const updateProductsStock = (products, product, setProducts) => {
+  let { id, quantity } = product;
+  let newProducts = products.filter(product => product.id !== id);
+  let productToUpdate = products.filter(product => product.id === id)[0];
+  productToUpdate.stock = productToUpdate.stock - quantity;
+  setProducts([...newProducts, productToUpdate]);
+};

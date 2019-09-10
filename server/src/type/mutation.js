@@ -34,13 +34,8 @@ const MutationType = new GraphQLObjectType({
             );
         }
       },
-      generateOrder: {
-        type: OrderResponse,
-        args: {
-          products: {
-            type: new GraphQLList((ProductInputType))
-          }
-        },
+      addOrder: {
+        type: Order,
         resolve(roots, args) {
           return Db.models.order
             .findAll({
@@ -52,34 +47,31 @@ const MutationType = new GraphQLObjectType({
                 ? parseInt(lastOrder[0].code.slice(1)) + 1
                 : 0;
               let code = generateOrderNumber(num);
-              return Db.models.order
-                .create({
-                  code
-                })
-                .then(({ code, id }) => {
-                  return Db.models.order
-                    .findOne({
-                      where: { id },
-                      include: {
-                        model: Db.models.product
-                      }
-                    })
-                    .then(result => {
-                      console.log('result!!!', Object.keys(result.__proto__));
-                      console.log('result!!!', result);
-                      // return result.addProducts(args.products);
-                      return args.products.map(product => {
-                        console.log('args.products!!!', product);
-                        result.addProduct(product);
-                        return null;
-                      });
-                    })
-                    .then(() => {
-                      return Db.models.order.findOne({
-                        where: { code }
-                      });
-                    });
-                });
+              return Db.models.order.create({
+                code
+              });
+            });
+        }
+      },
+      addProductOrder: {
+        type: Order,
+        args: {
+          products: {
+            type: new GraphQLNonNull(
+              new GraphQLList(new GraphQLNonNull(ProductInputType))
+            )
+          }
+        },
+        resolve(roots, args) {
+          return Db.models.order
+            .findAll({
+              limit: 1,
+              order: [['createdAt', 'DESC']]
+            })
+            .then(newOrder => {
+              console.log('newOrder!!!', newOrder);
+              args.products.map(({ id }) => newOrder[0].addProduct(id));
+              return null;
             });
         }
       }

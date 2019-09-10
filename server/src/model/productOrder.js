@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLString } from 'graphql';
+import { GraphQLObjectType, GraphQLID } from 'graphql';
 
 const OrderResponse = new GraphQLObjectType({
   name: 'OrderResponse',
@@ -6,7 +6,7 @@ const OrderResponse = new GraphQLObjectType({
   fields: () => {
     return {
       codeGenerated: {
-        type: GraphQLString,
+        type: GraphQLID,
         resolve(orderResponse) {
           return orderResponse.code;
         }

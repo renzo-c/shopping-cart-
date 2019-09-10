@@ -83,13 +83,13 @@ const Home = props => {
 
   const quotation = getQuotation(cartItems);
 
-  const handleClickOrder = (e, updateProduct) => {
+  const handleClickOrder = (e, updateProduct, generateOrder) => {
     cartItems.map(product => {
       let newStock = getNewStock(products, product);
       updateProduct({ variables: { id: product.id, stock: newStock } });
       return null;
     });
-    generateOrder({variables: {products: cartItems}});
+    generateOrder({ variables: { products: cartItems } });
     return null;
   };
 

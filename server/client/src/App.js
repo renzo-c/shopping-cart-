@@ -3,6 +3,8 @@ import Home from './Home';
 import GlobalStyle from './theme/globalStyle';
 import { PRODUCTS } from './components/product/queries';
 import { useQuery } from '@apollo/react-hooks';
+import { Router } from '@reach/router';
+import Order from './components/order';
 
 const App = () => {
   const { data, loading, error } = useQuery(PRODUCTS);
@@ -18,7 +20,10 @@ const App = () => {
     return (
       <>
         <GlobalStyle />
-        <Home products={data.products}/>
+        <Router>
+          <Order path='order-placed' />
+          <Home path='/' products={data.products} />
+        </Router>
       </>
     );
   }

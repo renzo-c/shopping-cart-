@@ -10,8 +10,15 @@ import {
 import { ButtonOrder } from '../../theme/shopModuleStyle';
 import { Span } from '../../theme/basicTags';
 import { getDeliveryTime } from '../../assets/helperFunctions';
+import { Link } from '@reach/router';
 
-const ShopModule = ({ children, handleChange, searchedText, quotation }) => {
+const ShopModule = ({
+  children,
+  handleChange,
+  searchedText,
+  quotation,
+  handleClickOrder
+}) => {
   const [deliveryDate, setDeliveryDate] = useState('');
 
   useEffect(() => {
@@ -54,7 +61,11 @@ const ShopModule = ({ children, handleChange, searchedText, quotation }) => {
             <Span color='red'>{quotation.totalCost.toFixed(2)}</Span>
           </Div>
         </QuoteBoard>
-        <ButtonOrder price={quotation.totalCost}>COMPLETE ORDER</ButtonOrder>
+        <ButtonOrder price={quotation.totalCost} onClick={handleClickOrder}>
+          <Link to='order-placed' style={{ textDecoration: 'none' }}>
+            COMPLETE ORDER
+          </Link>
+        </ButtonOrder>
       </PricingBoard>
     </>
   );

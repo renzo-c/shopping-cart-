@@ -7,6 +7,7 @@ const activeButton = css`
   &:active {
     background-color: #d16e0a;
   }
+  pointer-events: auto;
 `;
 
 export const ButtonOrder = styled.button`
@@ -22,5 +23,6 @@ export const ButtonOrder = styled.button`
   font-wight: 600;
   font-size: 16px;
   outline: none;
+  pointer-events: none;
   ${({ price }) => (price >= 50 ? activeButton : 'background: #f7f7f7;')}
 `;

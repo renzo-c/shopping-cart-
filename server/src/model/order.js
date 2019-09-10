@@ -1,7 +1,7 @@
 import { GraphQLObjectType, GraphQLID, GraphQLString } from 'graphql';
 
 const Order = new GraphQLObjectType({
-  name: 'oder',
+  name: 'order',
   description: 'this object represents an order',
   fields: () => {
     return {

@@ -6,7 +6,7 @@ import {
   GraphQLNonNull
 } from 'graphql';
 import Db from '../conn/db';
-import Product from '../model/product';
+import Product, { ProductInputType } from '../model/product';
 import Order from '../model/order';
 import { generateOrderNumber } from '../helperFunctions';
 import OrderResponse from '../model/productOrder';
@@ -37,8 +37,8 @@ const MutationType = new GraphQLObjectType({
       generateOrder: {
         type: OrderResponse,
         args: {
-          prodId: {
-            type: new GraphQLNonNull(GraphQLID)
+          products: {
+            type: new GraphQLList((ProductInputType))
           }
         },
         resolve(roots, args) {
@@ -65,7 +65,14 @@ const MutationType = new GraphQLObjectType({
                       }
                     })
                     .then(result => {
-                      return result.addProduct(args.prodId);
+                      console.log('result!!!', Object.keys(result.__proto__));
+                      console.log('result!!!', result);
+                      // return result.addProducts(args.products);
+                      return args.products.map(product => {
+                        console.log('args.products!!!', product);
+                        result.addProduct(product);
+                        return null;
+                      });
                     })
                     .then(() => {
                       return Db.models.order.findOne({

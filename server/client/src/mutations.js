@@ -8,3 +8,11 @@ export const UPDATE_STOCK = gql`
     }
   }
 `;
+
+export const GENERATE_ORDER = gql`
+  mutation generateOrder($products: [Product]!) {
+    generateOrder($products: products) {
+      codeGenerated
+    }
+  }
+`;

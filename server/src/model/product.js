@@ -1,5 +1,6 @@
 import {
   GraphQLObjectType,
+  GraphQLInputObjectType,
   GraphQLID,
   GraphQLString,
   GraphQLFloat,
@@ -40,6 +41,24 @@ const Product = new GraphQLObjectType({
         resolve(product) {
           return product.picture;
         }
+      }
+    };
+  }
+});
+
+export const ProductInputType = new GraphQLInputObjectType({
+  name: 'ProductInputType',
+  description: 'this object represents a ProductInputType',
+  fields: () => {
+    return {
+      id: {
+        type: GraphQLID
+      },
+      name: {
+        type: GraphQLString
+      },
+      price: {
+        type: GraphQLFloat
       }
     };
   }

@@ -89,6 +89,7 @@ const Home = props => {
       updateProduct({ variables: { id: product.id, stock: newStock } });
       return null;
     });
+    generateOrder({variables: {products: cartItems}});
     return null;
   };
 

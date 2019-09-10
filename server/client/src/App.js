@@ -1,7 +1,7 @@
 import React from 'react';
 import Home from './Home';
 import GlobalStyle from './theme/globalStyle';
-import { PRODUCTS } from './components/product/queries';
+import { PRODUCTS } from './queries';
 import { useQuery } from '@apollo/react-hooks';
 import { Router } from '@reach/router';
 import Order from './components/order';

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Row from './components/product/Row';
 import Cart from './components/product/Cart';
 import ShopModule from './components/product/ShopModule';
+import { getQuotation } from './assets/helperFunctions';
 
 const Home = props => {
   const [products] = useState(props.products);
@@ -17,10 +18,10 @@ const Home = props => {
     }
     let str = e.target.value.toLowerCase().trim();
     if (str) {
-      let newList = products.filter(product =>
+      let newCartItems = products.filter(product =>
         product.name.toLowerCase().includes(str)
       );
-      setFilteredList([...newList]);
+      setFilteredList([...newCartItems]);
     } else {
       setShopping({});
       setFilteredList([]);
@@ -30,8 +31,8 @@ const Home = props => {
   const handleClickAddItem = (e, product) => {
     e.preventDefault();
     if (product.deletable) {
-      let newList = cartItems.filter(item => item.id !== product.id);
-      setCartItems([...newList]);
+      let newCartItems = cartItems.filter(item => item.id !== product.id);
+      setCartItems([...newCartItems]);
       setShopping({ isShopping: false, product: {} });
     } else {
       let newProduct = cartItems.filter(p => p.id === product.id)[0];
@@ -48,26 +49,51 @@ const Home = props => {
     e.preventDefault();
     let newcartItems = cartItems.filter(product => product.id !== prodId);
     let updatedProduct = cartItems.filter(product => product.id === prodId)[0];
-    op === 'plus'
-      ? (updatedProduct.quantity += 1)
-      : (updatedProduct.quantity -= 1);
+    if (op === 'plus') {
+      if (updatedProduct.quantity < updatedProduct.stock) {
+        updatedProduct.quantity += 1;
+      }
+    } else {
+      updatedProduct.quantity -= 1;
+      if (updatedProduct.quantity === 0) {
+        setShopping({ ...shopping, isShopping: false });
+        setCartItems([...newcartItems]);
+        return null;
+      }
+    }
     setCartItems([...newcartItems, updatedProduct]);
   };
 
-  const onChangeCounter = (e, prodId) => {
+  const onChangeCounter = (e, id) => {
     e.preventDefault();
-    let newcartItems = cartItems.filter(product => product.id !== prodId);
-    let updatedProduct = cartItems.filter(product => product.id === prodId)[0];
-    console.log('updatedProduct', updatedProduct);
-    updatedProduct.quantity = parseInt(e.target.value);
+    let newQuantity = parseInt(e.target.value);
+    let newcartItems = cartItems.filter(product => product.id !== id);
+    let updatedProduct = cartItems.filter(product => product.id === id)[0];
+    if (newQuantity >= updatedProduct.stock) {
+      updatedProduct.quantity = updatedProduct.stock;
+    } else if (newQuantity <= 0) {
+      setShopping({ ...shopping, isShopping: false });
+      setCartItems([...newcartItems]);
+      return null;
+    } else {
+      updatedProduct.quantity = newQuantity;
+    }
     setCartItems([...newcartItems, updatedProduct]);
   };
+
+  const quotation = getQuotation(cartItems);
 
   console.log('cartItems', cartItems);
+  console.log('products', products);
+
   if (!searchedText.trim().length && !shopping.isShopping) {
     return (
       <>
-        <ShopModule handleChange={handleChange} searchedText={searchedText}>
+        <ShopModule
+          handleChange={handleChange}
+          searchedText={searchedText}
+          quotation={quotation}
+        >
           <Cart cartItems={cartItems} onClickAddDelete={handleClickAddItem} />
         </ShopModule>
       </>
@@ -75,7 +101,11 @@ const Home = props => {
   } else if (searchedText.trim().length && !shopping.isShopping) {
     return (
       <>
-        <ShopModule handleChange={handleChange} searchedText={searchedText}>
+        <ShopModule
+          handleChange={handleChange}
+          searchedText={searchedText}
+          quotation={quotation}
+        >
           {filteredList.map((product, key) => (
             <Row
               dull={false}
@@ -90,20 +120,25 @@ const Home = props => {
   } else if (shopping.isShopping) {
     return (
       <>
-        <ShopModule handleChange={handleChange} searchedText={searchedText}>
+        <ShopModule
+          handleChange={handleChange}
+          searchedText={searchedText}
+          quotation={quotation}
+        >
           <>
             <Row
               product={shopping.product}
               dull={false}
               onClickAddDelete={handleClickAddItem}
+              counter={true}
+              onClickCounter={handleClickCounter}
+              onChangeCounter={onChangeCounter}
             />
             {cartItems.map((product, key) => (
               <Row
                 dull={true}
                 product={product}
                 onClickAddDelete={handleClickAddItem}
-                onClickCounter={handleClickCounter}
-                onChangeCounter={onChangeCounter}
                 key={key}
               />
             ))}

@@ -10,7 +10,8 @@ import {
   CounterControl,
   ButtonContainer,
   CounterButton,
-  CounterDisplay
+  CounterDisplay,
+  MaxStockLabel
 } from '../../theme/rowStyle';
 import { IconSpan } from '../../theme/basicTags';
 
@@ -19,7 +20,8 @@ const productRow = ({
   onClickAddDelete,
   dull,
   onClickCounter,
-  onChangeCounter
+  onChangeCounter,
+  counter
 }) => {
   return (
     <>
@@ -44,20 +46,28 @@ const productRow = ({
           {product.quantity ? 'Delete' : null}
         </ButtonContainer>
       </Row>
-      {dull && (
-        <CounterControl>
-          <CounterButton onClick={e => onClickCounter(e, 'min', product.id)}>
-            <img alt='minus button' src='/images/minusIcon.png' />
-          </CounterButton>
-          <CounterDisplay
-            type='number'
-            value={product.quantity}
-            onChange={e => onChangeCounter(e, product.id)}
-          />
-          <CounterButton onClick={e => onClickCounter(e, 'plus', product.id)}>
-            <img alt='plus button' src='/images/plusIcon.png' />
-          </CounterButton>
-        </CounterControl>
+
+      {counter && (
+        <>
+          <CounterControl>
+            <CounterButton onClick={e => onClickCounter(e, 'min', product.id)}>
+              <img alt='minus button' src='/images/minusIcon.png' />
+            </CounterButton>
+            <CounterDisplay
+              type='number'
+              value={product.quantity}
+              onChange={e => onChangeCounter(e, product.id)}
+            />
+            <CounterButton onClick={e => onClickCounter(e, 'plus', product.id)}>
+              <img alt='plus button' src='/images/plusIcon.png' />
+            </CounterButton>
+          </CounterControl>
+          <MaxStockLabel>
+            {product.quantity === product.stock
+              ? `${product.stock} unidades disponibles`
+              : null}
+          </MaxStockLabel>
+        </>
       )}
     </>
   );

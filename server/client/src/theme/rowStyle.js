@@ -87,6 +87,20 @@ export const CounterControl = styled.div`
   top: 279px;
   justify-content: space-between;
   border-radius: 4px;
+  z-index: 10;
+`;
+
+export const MaxStockLabel = styled.div`
+  position: fixed;
+  display: block;
+  left: 300px;
+  top: 330px;
+  z-index: 10;
+  color: red;
+  font-size: 13px;
+  font-weight: 600;
+  text-aling:center;
+
 `;
 
 export const ButtonContainer = styled.div`

@@ -33,7 +33,7 @@ const productRow = ({
             $ {product.price.toFixed(2)}
           </Span>
         </Description>
-        <ButtonContainer>
+        <ButtonContainer stock={product.stock}>
           {!dull && (
             <Button onClick={e => onClickAddDelete(e, product)}>
               {product.quantity ? (

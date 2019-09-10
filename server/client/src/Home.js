@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Row from './components/product/Row';
 import Cart from './components/product/Cart';
 import ShopModule from './components/product/ShopModule';
-import { getQuotation } from './assets/helperFunctions';
+import { getQuotation, getNewStock } from './assets/helperFunctions';
 
 const Home = props => {
   const [products] = useState(props.products);
@@ -83,10 +83,14 @@ const Home = props => {
 
   const quotation = getQuotation(cartItems);
 
-  const handleClickOrder = (e) => {
-    e.preventDefault();
-    console.log("clicked!");
-  }
+  const handleClickOrder = (e, updateProduct) => {
+    cartItems.map(product => {
+      let newStock = getNewStock(products, product);
+      updateProduct({ variables: { id: product.id, stock: newStock } });
+      return null;
+    });
+    return null;
+  };
 
   // console.log('cartItems', cartItems);
   // console.log('products', products);

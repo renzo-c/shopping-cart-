@@ -24,7 +24,7 @@ const ShopModule = ({
   const [deliveryDate, setDeliveryDate] = useState('');
   const [updateProduct] = useMutation(UPDATE_STOCK);
   const [addOrder] = useMutation(ADD_ORDER);
-  // const [addProductOrder] = useMutation(ADD_PRODUCT_ORDER);
+  const [addProductOrder] = useMutation(ADD_PRODUCT_ORDER);
 
   useEffect(() => {
     let date = getDeliveryTime();
@@ -68,7 +68,7 @@ const ShopModule = ({
             price={quotation.totalCost}
             onClick={e => {
               addOrder();
-              handleClickOrder(e, updateProduct);
+              handleClickOrder(e, updateProduct, addProductOrder);
             }}
           >
             COMPLETE ORDER

@@ -87,14 +87,16 @@ const Home = props => {
 
   const quotation = getQuotation(cartItems);
 
-  const handleClickOrder = (e, updateProduct, addProductOrder) => {
+  const handleClickOrder = (e, updateProduct, addProductOrder, addOrder) => {
     cartItems.map(product => {
       let newStock = getNewStock(products, product);
       updateProduct({ variables: { id: product.id, stock: newStock } });
       return null;
     });
     let tempCartItems = toProductFormat(cartItems);
-    addProductOrder({ variables: { products: tempCartItems } });
+    addOrder().then(() =>
+      addProductOrder({ variables: { products: tempCartItems } })
+    );
     return null;
   };
 

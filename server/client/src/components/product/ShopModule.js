@@ -67,9 +67,7 @@ const ShopModule = ({
           <ButtonOrder
             price={quotation.totalCost}
             onClick={e => {
-              addOrder().then(() =>
-                handleClickOrder(e, updateProduct, addProductOrder)
-              );
+              handleClickOrder(e, updateProduct, addProductOrder, addOrder);
             }}
           >
             COMPLETE ORDER

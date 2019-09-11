@@ -7,6 +7,7 @@ import {
   getNewStock,
   toProductFormat
 } from './assets/helperFunctions';
+import { navigate } from '@reach/router';
 
 const Home = props => {
   const [products] = useState(props.products);
@@ -97,7 +98,7 @@ const Home = props => {
     addOrder().then(() =>
       addProductOrder({ variables: { products: tempCartItems } })
     );
-    return null;
+    navigate('/order-placed');
   };
 
   // console.log('cartItems', cartItems);

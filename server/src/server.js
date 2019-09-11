@@ -3,7 +3,7 @@ import graphqlHTTP from 'express-graphql';
 import schema from './schema';
 import cors from 'cors';
 import path from 'path';
-// require("dotenv").config();
+require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 

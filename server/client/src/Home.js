@@ -83,18 +83,17 @@ const Home = props => {
 
   const quotation = getQuotation(cartItems);
 
-  const handleClickOrder = (e, updateProduct, generateOrder) => {
+  const handleClickOrder = (e, updateProduct /* addProductOrder*/) => {
     cartItems.map(product => {
       let newStock = getNewStock(products, product);
       updateProduct({ variables: { id: product.id, stock: newStock } });
-      return null;
     });
-    generateOrder({ variables: { products: cartItems } });
+    // addOrder({ variables: { id: 5 } });
+    // .then(() =>
+    //   addProductOrder({ variables: { products: cartItems } })
+    // );
     return null;
   };
-
-  // console.log('cartItems', cartItems);
-  // console.log('products', products);
 
   if (!searchedText.trim().length && !shopping.isShopping) {
     return (

@@ -27,12 +27,12 @@ const QueryType = new GraphQLObjectType({
       },
       getOrderCode: {
         type: Order,
+        args:{},
         resolve(roots, args) {
           return Db.models.order
             .findAll({ limit: 1, order: [['createdAt', 'DESC']] })
             .then(result => {
-              console.log('result', result[0].code);
-              return result[0];
+              return Db.models.order.findOne({ where: { id: result[0].id } });
             });
         }
       }

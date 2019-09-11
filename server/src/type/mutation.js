@@ -9,31 +9,12 @@ import Db from '../conn/db';
 import Product, { ProductInputType } from '../model/product';
 import Order from '../model/order';
 import { generateOrderNumber } from '../helperFunctions';
-import OrderResponse from '../model/productOrder';
 
 const MutationType = new GraphQLObjectType({
   name: 'MutationType',
   description: 'Functions that edit data',
   fields() {
     return {
-      updateProduct: {
-        type: Product,
-        args: {
-          id: {
-            type: new GraphQLNonNull(GraphQLID)
-          },
-          stock: {
-            type: new GraphQLNonNull(GraphQLInt)
-          }
-        },
-        resolve(roots, args) {
-          return Db.models.product
-            .findOne({ where: { id: args.id } })
-            .then(prod =>
-              prod.update(args, { returning: true }).then(result => result)
-            );
-        }
-      },
       addOrder: {
         type: Order,
         resolve(roots, args) {
@@ -53,6 +34,24 @@ const MutationType = new GraphQLObjectType({
             });
         }
       },
+      updateProduct: {
+        type: Product,
+        args: {
+          id: {
+            type: new GraphQLNonNull(GraphQLID)
+          },
+          stock: {
+            type: new GraphQLNonNull(GraphQLInt)
+          }
+        },
+        resolve(roots, args) {
+          return Db.models.product
+            .findOne({ where: { id: args.id } })
+            .then(prod =>
+              prod.update(args, { returning: true }).then(result => result)
+            );
+        }
+      },
       addProductOrder: {
         type: Order,
         args: {
@@ -69,7 +68,6 @@ const MutationType = new GraphQLObjectType({
               order: [['createdAt', 'DESC']]
             })
             .then(newOrder => {
-              console.log('newOrder!!!', newOrder);
               args.products.map(({ id }) => newOrder[0].addProduct(id));
               return null;
             });

@@ -9,10 +9,18 @@ export const UPDATE_STOCK = gql`
   }
 `;
 
-export const GENERATE_ORDER = gql`
-  mutation generateOrder($products: [ProductInputType]) {
-    generateOrder(products: $products) {
-      codeGenerated
+export const ADD_ORDER = gql`
+  mutation addOrder {
+    addOrder {
+      code
+    }
+  }
+`;
+
+export const ADD_PRODUCT_ORDER = gql`
+  mutation addProductOrder($products: [ProductInputType]) {
+    addProductOrder(products: $products) {
+      code
     }
   }
 `;

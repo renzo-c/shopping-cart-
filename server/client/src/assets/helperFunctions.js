@@ -60,3 +60,17 @@ export const getNewStock = (products, product) => {
   let currentStock = products.filter(product => product.id === id)[0].stock;
   return currentStock - quantity;
 };
+
+export const toProductFormat = cartItems => {
+  let formatedProducts = [];
+  cartItems.map(product => {
+    delete product.deletable;
+    delete product.picture;
+    delete product.stock;
+    delete product.__typename;
+    formatedProducts.push(product);
+    return null;
+  });
+  console.log(formatedProducts);
+  return formatedProducts;
+};

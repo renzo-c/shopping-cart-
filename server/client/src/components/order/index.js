@@ -1,5 +1,4 @@
 import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
 import { GET_ORDER_CODE } from '../../queries';
 import {
   Container,
@@ -9,18 +8,18 @@ import {
   Span
 } from '../../theme/orderStyle';
 import { Link } from '@reach/router';
+import { graphql } from 'react-apollo';
 
-const Order = () => {
-  // const { loading, error, data } = useQuery(GET_ORDER_CODE);
-  // if (loading) return <p>Loading ...</p>;
-  // if (error) console.log('error!!!', error);
-  // console.log(data);
+const Order = ({ data }) => {
+  const { loading, error, getOrderCode } = data;
+  if (loading) return <p>Loading ...</p>;
+  if (error) console.log('error!!!', error);
   return (
     <Container>
       <TextContainer>
         <Div type='title'>Thank You</Div>
         <Div>
-          Your order <Span>xxx</Span> has been registered
+          Your order <Span>{getOrderCode.code}</Span> has been registered
         </Div>
         <Link to='/' style={{ textDecoration: 'none' }}>
           <Div>Continue shopping</Div>
@@ -31,4 +30,6 @@ const Order = () => {
   );
 };
 
-export default Order;
+export default graphql(GET_ORDER_CODE, {
+  options: { fetchPolicy: 'network-only' }
+})(Order);

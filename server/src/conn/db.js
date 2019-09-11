@@ -1,7 +1,8 @@
 import Sequelize from 'sequelize';
 import productModel from './product';
 import orderModel from './order';
-// require("dotenv").config();
+import productOrder from './productOrder';
+// require('dotenv').config();
 const db = new Sequelize(
   process.env.DB_NAME,
   process.env.DB_USER,
@@ -15,10 +16,11 @@ const db = new Sequelize(
 // modeling tables through define
 const Product = db.define('product', productModel);
 const Order = db.define('order', orderModel);
+const ProductOrder = db.define('productOrder', productOrder);
 
 // Associations
-Product.belongsToMany(Order, { through: 'productOrder' });
-Order.belongsToMany(Product, { through: 'productOrder' });
+Product.belongsToMany(Order, { through: ProductOrder });
+Order.belongsToMany(Product, { through: ProductOrder });
 
 db.sync({ force: true }).then(() => {
   return Product.bulkCreate([

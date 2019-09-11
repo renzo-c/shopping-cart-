@@ -65,7 +65,7 @@ const MutationType = new GraphQLObjectType({
           return Db.models.order
             .findAll({
               limit: 1,
-              order: [['createdAt', 'ASC']]
+              order: [['createdAt', 'DESC']]
             })
             .then(newOrder => {
               console.log('newOrder', newOrder);

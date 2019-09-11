@@ -35,9 +35,14 @@ const productRow = ({
         </Description>
         <ButtonContainer>
           {!dull && (
-            <Button onClick={e => onClickAddDelete(e, product)}>
+            <Button
+              stock={product.stock}
+              onClick={e => onClickAddDelete(e, product)}
+            >
               {product.quantity ? (
-                <IconSpan color='white'>{product.quantity}</IconSpan>
+                <IconSpan color='white'>
+                  {product.stock === 0 ? 0 : product.quantity}
+                </IconSpan>
               ) : (
                 <Cross />
               )}
@@ -55,7 +60,7 @@ const productRow = ({
             </CounterButton>
             <CounterDisplay
               type='number'
-              value={product.quantity}
+              value={product.stock === 0 ? 0 : product.quantity}
               onChange={e => onChangeCounter(e, product.id)}
             />
             <CounterButton onClick={e => onClickCounter(e, 'plus', product.id)}>
@@ -63,7 +68,7 @@ const productRow = ({
             </CounterButton>
           </CounterControl>
           <MaxStockLabel>
-            {product.quantity === product.stock
+            {product.quantity === product.stock || product.stock === 0
               ? `${product.stock} unidades disponibles`
               : null}
           </MaxStockLabel>

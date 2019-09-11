@@ -2,31 +2,31 @@ import React from 'react';
 import Home from './Home';
 import GlobalStyle from './theme/globalStyle';
 import { PRODUCTS } from './queries';
-import { useQuery } from '@apollo/react-hooks';
 import { Router } from '@reach/router';
 import Order from './components/order';
+import { graphql } from 'react-apollo';
 
-const App = () => {
-  const { data, loading, error } = useQuery(PRODUCTS);
-
+const App = ({ data }) => {
+  let { products, loading, error } = data;
   if (loading) {
     return <div>Loading...</div>;
   }
   if (error) {
-    console.log('error!', error);
     return <div>Error</div>;
   }
-  if (data) {
+  if (products) {
     return (
       <>
         <GlobalStyle />
         <Router>
           <Order path='order-placed' />
-          <Home path='/' products={data.products} />
+          <Home path='/' products={products} />
         </Router>
       </>
     );
   }
 };
 
-export default App;
+export default graphql(PRODUCTS, {
+  options: { fetchPolicy: 'network-only' }
+})(App);

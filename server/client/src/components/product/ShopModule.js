@@ -11,6 +11,8 @@ import { ButtonOrder } from '../../theme/shopModuleStyle';
 import { Span } from '../../theme/basicTags';
 import { getDeliveryTime } from '../../assets/helperFunctions';
 import { Link } from '@reach/router';
+import { useMutation } from '@apollo/react-hooks';
+import { UPDATE_STOCK, ADD_ORDER, ADD_PRODUCT_ORDER } from '../../mutations';
 
 const ShopModule = ({
   children,
@@ -20,14 +22,14 @@ const ShopModule = ({
   handleClickOrder
 }) => {
   const [deliveryDate, setDeliveryDate] = useState('');
+  const [updateProduct] = useMutation(UPDATE_STOCK);
+  const [addOrder] = useMutation(ADD_ORDER);
+  // const [addProductOrder] = useMutation(ADD_PRODUCT_ORDER);
 
   useEffect(() => {
     let date = getDeliveryTime();
     setDeliveryDate(date);
   }, []);
-
-  console.log('quotation!', quotation);
-
   return (
     <>
       <SearchBar
@@ -61,11 +63,18 @@ const ShopModule = ({
             <Span color='red'>{quotation.totalCost.toFixed(2)}</Span>
           </Div>
         </QuoteBoard>
-        <ButtonOrder price={quotation.totalCost} onClick={handleClickOrder}>
-          <Link to='order-placed' style={{ textDecoration: 'none' }}>
+        <Link to='order-placed' style={{ textDecoration: 'none' }}>
+          <ButtonOrder
+            price={quotation.totalCost}
+            onClick={e => {
+              console.log('hi');
+              addOrder();
+              handleClickOrder(e, updateProduct);
+            }}
+          >
             COMPLETE ORDER
-          </Link>
-        </ButtonOrder>
+          </ButtonOrder>
+        </Link>
       </PricingBoard>
     </>
   );

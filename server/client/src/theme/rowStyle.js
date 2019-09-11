@@ -1,4 +1,9 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+
+const activeButton = css`
+  background: #f7f7f7;
+  pointer-events: none;
+`;
 
 export const Row = styled.div`
   display: flex;
@@ -55,6 +60,7 @@ export const Button = styled.button`
   &:active {
     background-color: #d16e0a;
   }
+  ${({ stock }) => (stock === 0 ? activeButton : null)};
 `;
 
 export const Cross = styled.span`
@@ -99,8 +105,7 @@ export const MaxStockLabel = styled.div`
   color: red;
   font-size: 13px;
   font-weight: 600;
-  text-aling:center;
-
+  text-aling: center;
 `;
 
 export const ButtonContainer = styled.div`

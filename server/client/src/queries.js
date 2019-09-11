@@ -11,3 +11,11 @@ export const PRODUCTS = gql`
     }
   }
 `;
+
+export const GET_ORDER_CODE = gql`
+  query getOrderCode {
+    getOrderCode {
+      code
+    }
+  }
+`;

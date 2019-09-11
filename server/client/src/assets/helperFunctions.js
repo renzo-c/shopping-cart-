@@ -55,10 +55,8 @@ export const getQuotation = cartItems => {
   return { productsCost, shippingCost, taxes, totalCost };
 };
 
-export const updateProductsStock = (products, product, setProducts) => {
+export const getNewStock = (products, product) => {
   let { id, quantity } = product;
-  let newProducts = products.filter(product => product.id !== id);
-  let productToUpdate = products.filter(product => product.id === id)[0];
-  productToUpdate.stock = productToUpdate.stock - quantity;
-  setProducts([...newProducts, productToUpdate]);
+  let currentStock = products.filter(product => product.id === id)[0].stock;
+  return currentStock - quantity;
 };

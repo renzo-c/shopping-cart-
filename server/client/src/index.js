@@ -6,7 +6,14 @@ import App from './App';
 
 const client = new ApolloClient({
   // uri: 'http://localhost:5000/graphql',
-  uri: 'https://shopping-cart-rq.herokuapp.com/graphql'
+  uri: 'https://shopping-cart-rq.herokuapp.com/graphql',
+  onError: ({ graphQLErrors, networkError }) => {
+    if (graphQLErrors) {
+      console.log('graphQLErrors!!!', graphQLErrors);
+    } else if (networkError) {
+      console.log('networkError!!!', networkError);
+    }
+  }
 });
 
 ReactDOM.render(

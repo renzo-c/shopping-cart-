@@ -95,10 +95,9 @@ const Home = props => {
       return null;
     });
     let tempCartItems = toProductFormat(cartItems);
-    addOrder().then(() =>
-      addProductOrder({ variables: { products: tempCartItems } })
-    );
-    navigate('/order-placed');
+    addOrder()
+      .then(() => addProductOrder({ variables: { products: tempCartItems } }))
+      .then(() => navigate('/order-placed'));
   };
 
   // console.log('cartItems', cartItems);

@@ -63,15 +63,14 @@ const ShopModule = ({
             <Span color='red'>{quotation.totalCost.toFixed(2)}</Span>
           </Div>
         </QuoteBoard>
-        <Link to='order-placed' style={{ textDecoration: 'none' }}>
-          <ButtonOrder
-            price={quotation.totalCost}
-            onClick={e => {
-              handleClickOrder(e, updateProduct, addProductOrder, addOrder);
-            }}
-          >
-            COMPLETE ORDER
-          </ButtonOrder>
+        <Link
+          to='order-placed'
+          onClick={e => {
+            handleClickOrder(e, updateProduct, addProductOrder, addOrder);
+          }}
+          style={{ textDecoration: 'none' }}
+        >
+          <ButtonOrder price={quotation.totalCost}>COMPLETE ORDER</ButtonOrder>
         </Link>
       </PricingBoard>
     </>

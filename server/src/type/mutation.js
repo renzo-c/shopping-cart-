@@ -65,10 +65,17 @@ const MutationType = new GraphQLObjectType({
           return Db.models.order
             .findAll({
               limit: 1,
-              order: [['createdAt', 'DESC']]
+              order: [['createdAt', 'ASC']]
             })
             .then(newOrder => {
-              args.products.map(({ id }) => newOrder[0].addProduct(id));
+              console.log('newOrder', newOrder);
+              args.products.map(({ id, quantity }) =>
+                newOrder[0].addProduct(id, {
+                  through: {
+                    quantity
+                  }
+                })
+              );
               return null;
             });
         }

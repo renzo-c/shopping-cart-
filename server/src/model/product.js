@@ -59,6 +59,9 @@ export const ProductInputType = new GraphQLInputObjectType({
       },
       price: {
         type: GraphQLFloat
+      },
+      quantity: {
+        type: GraphQLInt
       }
     };
   }

@@ -18,7 +18,7 @@ export const ADD_ORDER = gql`
 `;
 
 export const ADD_PRODUCT_ORDER = gql`
-  mutation addProductOrder($products: [ProductInputType]) {
+  mutation addProductOrder($products: [ProductInputType!]!) {
     addProductOrder(products: $products) {
       code
     }
